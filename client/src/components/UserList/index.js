@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import moment from 'moment';
+import AlertConfirm from '../AlertConfirm';
 
 const styles = {
   root: {
@@ -37,10 +38,16 @@ const styles = {
   }
 };
 
-const UserListItem = ({ item, onRemove, editUser }) => (
+const UserListItem = ({ item, editUser, confirmRemoveUser }) => (
   <TableRow key={item.id}>
     <TableCell component="th" scope="row">
-      {item.id}
+      <Button
+        onClick={e => {
+          editUser(e, item);
+        }}
+      >
+        {item.id}
+      </Button>
     </TableCell>
     <TableCell>{item.username}</TableCell>
     <TableCell>{item.isEnabled ? 'Yes' : 'No'}</TableCell>
@@ -55,7 +62,7 @@ const UserListItem = ({ item, onRemove, editUser }) => (
       <IconButton
         aria-label="Delete"
         onClick={e => {
-          onRemove(e, item.id);
+          confirmRemoveUser(e, item.id);
         }}
       >
         <DeleteIcon />
@@ -94,7 +101,16 @@ const UserListFooter = ({ classes }) => (
   </TableFooter>
 );
 
-const UserList = ({ items, onRemove, classes, editUser }) => (
+const UserList = ({
+  items,
+  removeUser,
+  classes,
+  editUser,
+  openModal,
+  onCloseModal,
+  confirmRemoveUser,
+  userId
+}) => (
   <Paper className={classes.root}>
     <Table>
       <UserListHeader />
@@ -103,7 +119,7 @@ const UserList = ({ items, onRemove, classes, editUser }) => (
           <UserListItem
             key={index}
             item={item}
-            onRemove={onRemove}
+            confirmRemoveUser={confirmRemoveUser}
             editUser={editUser}
           />
         ))}
@@ -111,19 +127,33 @@ const UserList = ({ items, onRemove, classes, editUser }) => (
       {!items || items.length === 0 ? 'User list is empty' : ''}
       <UserListFooter classes={classes} />
     </Table>
+    <AlertConfirm
+      title={'Confirm user delection'}
+      message={`Do you want remove the user with id: ${userId}`}
+      open={openModal}
+      onClose={onCloseModal}
+      submit={e => {
+        removeUser(e);
+      }}
+    />
   </Paper>
 );
 
 UserListItem.propTypes = {
   item: propTypes.object,
-  onRemove: propTypes.func
+  editUser: propTypes.func,
+  confirmRemoveUser: propTypes.func
 };
 
 UserList.propTypes = {
   classes: propTypes.object,
   items: propTypes.array,
-  onRemove: propTypes.func,
-  editUser: propTypes.func
+  removeUser: propTypes.func,
+  editUser: propTypes.func,
+  openModal: propTypes.bool,
+  onCloseModal: propTypes.func,
+  confirmRemoveUser: propTypes.func,
+  userId: propTypes.number
 };
 
 export default withStyles(styles)(UserList);

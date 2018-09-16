@@ -1,4 +1,4 @@
-import { compose, withState, withHandlers, lifecycle } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import UserForm from '../pages/userForm';
 import { saveUser } from '../services/requests';
@@ -28,14 +28,16 @@ const submit = ({ user, history }) => async e => {
 
 const enhance = compose(
   withRouter,
-  withState('user', 'setUser', DEFAULT_USER),
+  withState(
+    'user',
+    'setUser',
+    ({ location }) =>
+      location && location.state
+        ? JSON.parse(JSON.stringify(location.state))
+        : DEFAULT_USER
+  ),
   withState('showBasicInfo', 'setShowBasicInfo', false),
-  withHandlers({ changeCard, submit, onChangeValue }),
-  lifecycle({
-    componentWillMount() {
-      console.log(this.props);
-    }
-  })
+  withHandlers({ changeCard, submit, onChangeValue })
 );
 
 export default enhance(UserForm);

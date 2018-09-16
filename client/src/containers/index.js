@@ -8,16 +8,31 @@ const loadUsers = ({ setUsers }) => async () => {
   setUsers(users);
 };
 
-const removeUser = ({ setUsers }) => async (e, userId) => {
+const onCloseModal = ({ setOpenModal }) => e => {
   e.preventDefault();
-  const message = await deleteUser(userId);
-  console.log(message);
+  setOpenModal(false);
+};
+
+const confirmRemoveUser = ({ setOpenModal, setUserId }) => (e, userId) => {
+  e.preventDefault();
+  setOpenModal(true);
+  setUserId(userId);
+};
+
+const removeUser = ({ setUsers, setOpenModal, userId }) => async e => {
+  e.preventDefault();
+  if (userId) {
+    const message = await deleteUser(userId);
+    console.log(message);
+  }
+  setOpenModal(false);
   const users = await fetchUsers();
   setUsers(users);
 };
 
-const editUser = ({ history }) => user => {
-  history.push('/userForm', user);
+const editUser = ({ history }) => (e, userSelected) => {
+  e.preventDefault();
+  history.push('/userForm', userSelected);
 };
 
 const search = ({ setUsers }) => async value => {
@@ -28,7 +43,16 @@ const search = ({ setUsers }) => async value => {
 const enhance = compose(
   withRouter,
   withState('users', 'setUsers', []),
-  withHandlers({ loadUsers, removeUser, search, editUser }),
+  withState('userId', 'setUserId', null),
+  withState('openModal', 'setOpenModal', false),
+  withHandlers({
+    loadUsers,
+    confirmRemoveUser,
+    onCloseModal,
+    removeUser,
+    search,
+    editUser
+  }),
   lifecycle({
     async componentWillMount() {
       const { loadUsers } = this.props;
