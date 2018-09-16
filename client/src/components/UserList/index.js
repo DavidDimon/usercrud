@@ -146,9 +146,9 @@ UserListItem.propTypes = {
 };
 
 UserList.propTypes = {
-  classes: propTypes.object,
   items: propTypes.array,
   removeUser: propTypes.func,
+  classes: propTypes.object,
   editUser: propTypes.func,
   openModal: propTypes.bool,
   onCloseModal: propTypes.func,

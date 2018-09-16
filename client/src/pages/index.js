@@ -55,9 +55,11 @@ Home.propTypes = {
   users: propTypes.array,
   removeUser: propTypes.func,
   editUser: propTypes.func,
+  classes: propTypes.object,
+  search: propTypes.func,
   openModal: propTypes.bool,
-  confirmRemoveUser: propTypes.func,
   onCloseModal: propTypes.func,
+  confirmRemoveUser: propTypes.func,
   userId: propTypes.number
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Dialog, DialogTitle, Typography, Button } from '@material-ui/core';
 
@@ -32,5 +33,14 @@ const AlertConfirm = ({ title, message, open, onClose, submit, classes }) => (
     </div>
   </Dialog>
 );
+
+AlertConfirm.propTypes = {
+  title: propTypes.string,
+  message: propTypes.string,
+  open: propTypes.bool,
+  onClose: propTypes.func,
+  submit: propTypes.func,
+  classes: propTypes.object
+};
 
 export default withStyles(styles)(AlertConfirm);

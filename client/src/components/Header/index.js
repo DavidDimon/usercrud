@@ -26,7 +26,8 @@ const Header = ({ classes, children, title }) => (
 
 Header.propTypes = {
   classes: propTypes.object.isRequired,
-  children: propTypes.node
+  children: propTypes.node,
+  title: propTypes.string
 };
 
 export default withStyles(styles)(Header);

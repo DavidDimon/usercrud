@@ -161,12 +161,29 @@ const UserForm = ({
   </Header>
 );
 
+LoginInfo.propTypes = {
+  user: propTypes.object,
+  classes: propTypes.object,
+  next: propTypes.func,
+  submit: propTypes.func,
+  onChangeValue: propTypes.func
+};
+
+BasicInfo.propTypes = {
+  user: propTypes.object,
+  classes: propTypes.object,
+  back: propTypes.func,
+  submit: propTypes.func,
+  onChangeValue: propTypes.func
+};
+
 UserForm.propTypes = {
   user: propTypes.object,
   classes: propTypes.object,
   showBasicInfo: propTypes.bool,
   changeCard: propTypes.func,
-  onChangeValue: propTypes.func
+  onChangeValue: propTypes.func,
+  submit: propTypes.func
 };
 
 export default withStyles(styles)(UserForm);
