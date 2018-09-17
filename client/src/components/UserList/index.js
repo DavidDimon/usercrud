@@ -27,7 +27,8 @@ const styles = {
   },
   addButton: {
     maxHeight: 50,
-    maxWidth: 200,
+    minWidth: 200,
+    maxWidth: 300,
     alignSelf: 'flex-end'
   },
   emptyList: {
@@ -92,7 +93,7 @@ const UserListFooter = ({ classes }) => (
     <Button
       color="primary"
       className={classes.addButton}
-      to={'/userForm'}
+      to={{ pathname: '/userForm', state: null }}
       component={Link}
     >
       {'Add new user'}
