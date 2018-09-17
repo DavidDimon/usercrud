@@ -1,4 +1,4 @@
-# User crud application 
+# User crud application
 
 # Requirements
 
@@ -19,6 +19,14 @@
 - Run this command `yarn && yarn start` or `npm install && npm run start`
 - Your application is runnning on localhost:3000 !!
 
+# Server routes
+
+- GET /api/v1/user/ (get all users)
+- GET /api/v1/user/{searchParam} (get users by param, search by name, username or email)
+- POST /api/v1/user/generate/{countUser} (generate random users, if countUser = 0 only returns all users)
+- POST /api/v1/user/save (create or edit user)
+- DELETE /api/v1/user/delete/{userId} (delete user by id)
+
 # Libraries(or tecnologies) used
 
 - Java 8
@@ -34,6 +42,6 @@
 - moment.js
 - React router
 
-# Alert
+# Disclaimer
 
-This project was created for tests
+This project is created for tests and studies porposes

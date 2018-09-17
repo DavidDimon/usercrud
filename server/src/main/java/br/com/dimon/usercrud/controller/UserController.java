@@ -7,7 +7,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static br.com.dimon.usercrud.constant.Constant.GENERIC_NAMES;
 
 @RestController
 @AllArgsConstructor
@@ -18,12 +22,28 @@ public class UserController {
 
     @GetMapping("/api/v1/user/")
     public List<User> getUsers(){
-        return repository.findAll(new Sort("id"));
+        return repository.findAll(new Sort(Sort.Direction.DESC,"id"));
     }
 
     @GetMapping("/api/v1/user/{searchParam}")
     public List<User> getUsersByParam(@PathVariable("searchParam") String searchParam){
         return repository.findByParam(searchParam);
+    }
+
+    @PostMapping("/api/v1/user/generate/{countUser}")
+    public List<User> generateUsers(@PathVariable("countUser") Integer countUser){
+        if(countUser > 0){
+            List<User> newUsers = new ArrayList();
+            for(int i = 0; i < countUser; i++){
+                User user = new User();
+                user.setUsername(GENERIC_NAMES[this.getRandomIndex()]+i);
+                user.setName(GENERIC_NAMES[this.getRandomIndex()]+i);
+                user.setEmail(GENERIC_NAMES[this.getRandomIndex()]+i+"_"+GENERIC_NAMES[this.getRandomIndex()]+"@mail.com");
+                newUsers.add(user);
+            }
+            repository.saveAll(newUsers);
+        }
+        return repository.findAll(new Sort(Sort.Direction.DESC,"id"));
     }
 
     @PostMapping("/api/v1/user/save")
@@ -45,5 +65,10 @@ public class UserController {
         } else {
             throw new NullPointerException("User id null");
         }
+    }
+
+    private Integer getRandomIndex(){
+        Random random = new Random();
+        return (random.nextInt(3 - 1 + 1) + 1) - 1;
     }
 }
