@@ -129,7 +129,7 @@ const UserList = ({
     </Table>
     <AlertConfirm
       title={'Confirm user delection'}
-      message={`Do you want remove the user with id: ${userId}`}
+      message={`Do you want remove the user with id: ${userId}?`}
       open={openModal}
       onClose={onCloseModal}
       submit={e => {
