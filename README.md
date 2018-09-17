@@ -34,5 +34,6 @@
 - moment.js
 - React router
 
-# Disclaimer
-This project is created for tests and studies porposes
+# Alert
+
+This project was created for tests
