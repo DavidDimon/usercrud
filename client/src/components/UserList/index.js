@@ -92,7 +92,7 @@ const UserListFooter = ({ classes }) => (
     <Button
       color="primary"
       className={classes.addButton}
-      to={'/userForm'}
+      to={{ pathname: '/userForm', state: null }}
       component={Link}
     >
       {'Add new user'}
