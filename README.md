@@ -35,4 +35,5 @@
 - React router
 
 # Disclaimer
-This project is created for tests and studies porposes
+
+This project was created for tests
