@@ -27,7 +27,8 @@ const styles = {
   },
   addButton: {
     maxHeight: 50,
-    maxWidth: 200,
+    minWidth: 200,
+    maxWidth: 300,
     alignSelf: 'flex-end'
   },
   emptyList: {
